@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>When Less is More: Surprising Gains from Label-Aware Quantization</title>
   <style>
-    /* Basic page styling */
+    /* Basic styling */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -59,19 +59,62 @@
       bottom: 0;
       width: 100%;
     }
-    .poster-image {
-      display: block;
-      margin: 20px auto;
-      max-width: 100%;
-      height: auto;
-      border: 1px solid #ccc;
+    /* Gallery styles */
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+    .gallery img {
+      max-width: 300px;
+      width: 100%;
+      cursor: pointer;
+      border: 2px solid #ddd;
       border-radius: 5px;
+      transition: transform 0.3s;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+      border-color: #aaa;
+    }
+    /* Modal styling */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.8);
+    }
+    .modal-content {
+      margin: 5% auto;
+      display: block;
+      max-width: 80%;
+    }
+    .caption {
+      margin: auto;
+      display: block;
+      width: 80%;
+      text-align: center;
+      color: #fff;
+      padding: 10px 0;
+    }
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-
-  <!-- HEADER -->
   <header>
     <h1>When Less is More: Surprising Gains from Label-Aware Quantization</h1>
     <p>Saathvik Drisala, Jessica Hung, Ari Julijian, Yiyan Luo, Alex Cotinger, Rayan Saab<br/>
@@ -79,80 +122,99 @@
     </p>
   </header>
 
-  <!-- NAVIGATION -->
   <nav>
     <a href="#abstract">Abstract</a>
     <a href="#setup">Experiment Setup</a>
     <a href="#subset-generation">Subset Generation</a>
     <a href="#results">Results</a>
+    <a href="#visualizations">Visualizations</a>
     <a href="#conclusions">Conclusions</a>
   </nav>
 
-  <!-- MAIN CONTENT CONTAINER -->
   <div class="container">
-
-    <!-- Optional: If you want to show the entire poster image, uncomment below
-    <img src="images/your-poster.png" alt="Poster Image" class="poster-image" />
-    -->
-
     <section id="abstract">
       <h2>Abstract</h2>
       <p>
-        <!-- Replace this placeholder text with your poster's Abstract -->
-        Large classification models can easily overfit or memorize spurious features. 
-        We explore a label-aware quantization technique to reduce model complexity 
-        while preserving (or even improving) accuracy, especially on smaller or 
-        more focused subsets of data.
+        Brief summary of the research project, including the main objectives and key findings.
       </p>
     </section>
 
     <section id="setup">
       <h2>Experiment Setup</h2>
       <p>
-        <!-- Replace this placeholder text with your poster's Experiment Setup -->
-        We evaluate on various CNN architectures. We first measure baseline 
-        performance, then apply a quantization procedure with different 
-        bit-widths, regularization, and data subset sizes.
+        Explanation of the methods used, including model architectures, quantization parameters, and dataset specifics.
       </p>
     </section>
 
     <section id="subset-generation">
       <h2>Subset Generation</h2>
       <p>
-        <!-- Replace this placeholder text with your poster's Subset Generation details -->
-        We create smaller subsets of CIFAR100 classes based on similarity measures. 
-        These subsets allow us to analyze how label-aware quantization affects 
-        performance when fewer classes are involved.
+        Details on how subsets were generated from CIFAR100 classes and the rationale behind them.
       </p>
     </section>
 
     <section id="results">
       <h2>Results</h2>
       <p>
-        <!-- Replace this placeholder text with your poster's Results discussion -->
-        Our experiments show that carefully chosen subsets plus label-aware 
-        quantization can outperform the original model in certain cases. 
-        We report top-1 and top-5 accuracies, along with memory savings and 
-        sparsity metrics.
+        Key findings including accuracy, sparsity metrics, and comparisons between original, quantized, and fine-tuned models.
       </p>
+    </section>
+
+    <section id="visualizations">
+      <h2>Visualizations</h2>
+      <div class="gallery">
+        <img src="images/Quantization-Process.png" alt="Quantization Process Flowchart" data-caption="Flowchart of the Quantization Process">
+        <img src="images/resnet50.png" alt="ResNet50 Graph" data-caption="Graph of ResNet50 Performance">
+        <img src="images/umap.png" alt="UMAP Class Embeddings" data-caption="UMAP Visualization of All Class Embeddings">
+      </div>
     </section>
 
     <section id="conclusions">
       <h2>Conclusions</h2>
       <p>
-        <!-- Replace this placeholder text with your poster's Conclusions -->
-        In summary, partial CNN usage on subsets of classes can reduce 
-        overfitting while achieving high accuracy. Combined with quantization, 
-        we can significantly reduce model size and improve efficiency.
+        Conclusions drawn from the experiments and potential future directions for label-aware quantization research.
       </p>
     </section>
-
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <p>&copy; 2025 Label-Aware Quantization | Halıcıoğlu Data Science Institute, UC San Diego</p>
   </footer>
 
+  <!-- Modal Structure -->
+  <div id="modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-img">
+    <div class="caption" id="modal-caption"></div>
+  </div>
+
+  <script>
+    // Modal functionality for image gallery
+    const modal = document.getElementById("modal");
+    const modalImg = document.getElementById("modal-img");
+    const captionText = document.getElementById("modal-caption");
+    const closeBtn = document.querySelector(".close");
+
+    // Attach click events to all gallery images
+    document.querySelectorAll(".gallery img").forEach(img => {
+      img.addEventListener("click", () => {
+        modal.style.display = "block";
+        modalImg.src = img.src;
+        captionText.innerText = img.getAttribute("data-caption");
+      });
+    });
+
+    // When the close button is clicked, close the modal
+    closeBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+    });
+
+    // Optional: Close modal when clicking outside the modal content
+    window.addEventListener("click", (event) => {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+  </script>
 </body>
 </html>
