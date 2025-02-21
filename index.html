@@ -1,1 +1,106 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+        }
+        header {
+            background: #333;
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #444;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+        nav a:hover {
+            background: #555;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        section {
+            margin-bottom: 20px;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Research Project Title</h1>
+        <p>Author(s) Name</p>
+    </header>
+    <nav>
+        <a href="#abstract">Abstract</a>
+        <a href="#methodology">Methodology</a>
+        <a href="#results">Results</a>
+        <a href="#references">References</a>
+    </nav>
+    <div class="container">
+        <section id="abstract">
+            <h2>Abstract</h2>
+            <p>Brief summary of the research project, including the main objectives and key findings.</p>
+        </section>
+        <section id="methodology">
+            <h2>Methodology</h2>
+            <p>Explanation of the methods used in the research, including data collection and analysis techniques.</p>
+        </section>
+        <section id="results">
+            <h2>Results</h2>
+            <p>Key findings and discussion of the results obtained from the research.</p>
+        </section>
+        <section id="references">
+            <h2>References</h2>
+            <p>List of references and citations used in the research.</p>
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2025 Research Project | Your Institution</p>
+    </footer>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const sections = document.querySelectorAll("section");
+            sections.forEach(section => {
+                section.addEventListener("click", function() {
+                    this.classList.toggle("highlight");
+                });
+            });
+        });
+    </script>
+</body>
+</html>
