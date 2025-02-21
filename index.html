@@ -1,106 +1,158 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Research Project</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            background-color: #f4f4f4;
-        }
-        header {
-            background: #333;
-            color: white;
-            padding: 15px 20px;
-            text-align: center;
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            background: #444;
-            padding: 10px;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            padding: 10px 15px;
-        }
-        nav a:hover {
-            background: #555;
-        }
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-            border-radius: 5px;
-        }
-        section {
-            margin-bottom: 20px;
-        }
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-        .highlight {
-            background-color: yellow;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>When Less is More: Surprising Gains from Label-Aware Quantization</title>
+  <style>
+    /* Basic page styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background-color: #f4f4f4;
+    }
+    header {
+      background: #333;
+      color: #fff;
+      padding: 15px 20px;
+      text-align: center;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #444;
+      padding: 10px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      margin: 0 5px;
+    }
+    nav a:hover {
+      background: #555;
+    }
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+      border-radius: 5px;
+    }
+    section {
+      margin-bottom: 30px;
+    }
+    section h2 {
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 5px;
+    }
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      position: relative;
+      bottom: 0;
+      width: 100%;
+    }
+    .poster-image {
+      display: block;
+      margin: 20px auto;
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Research Project Title</h1>
-        <p>Author(s) Name</p>
-    </header>
-    <nav>
-        <a href="#abstract">Abstract</a>
-        <a href="#methodology">Methodology</a>
-        <a href="#results">Results</a>
-        <a href="#references">References</a>
-    </nav>
-    <div class="container">
-        <section id="abstract">
-            <h2>Abstract</h2>
-            <p>Brief summary of the research project, including the main objectives and key findings.</p>
-        </section>
-        <section id="methodology">
-            <h2>Methodology</h2>
-            <p>Explanation of the methods used in the research, including data collection and analysis techniques.</p>
-        </section>
-        <section id="results">
-            <h2>Results</h2>
-            <p>Key findings and discussion of the results obtained from the research.</p>
-        </section>
-        <section id="references">
-            <h2>References</h2>
-            <p>List of references and citations used in the research.</p>
-        </section>
-    </div>
-    <footer>
-        <p>&copy; 2025 Research Project | Your Institution</p>
-    </footer>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const sections = document.querySelectorAll("section");
-            sections.forEach(section => {
-                section.addEventListener("click", function() {
-                    this.classList.toggle("highlight");
-                });
-            });
-        });
-    </script>
+
+  <!-- HEADER -->
+  <header>
+    <h1>When Less is More: Surprising Gains from Label-Aware Quantization</h1>
+    <p>Saathvik Drisala, Jessica Hung, Ari Julijian, Yiyan Luo, Alex Cotinger, Rayan Saab<br/>
+       Halıcıoğlu Data Science Institute, UC San Diego
+    </p>
+  </header>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#abstract">Abstract</a>
+    <a href="#setup">Experiment Setup</a>
+    <a href="#subset-generation">Subset Generation</a>
+    <a href="#results">Results</a>
+    <a href="#conclusions">Conclusions</a>
+  </nav>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <div class="container">
+
+    <!-- Optional: If you want to show the entire poster image, uncomment below
+    <img src="images/your-poster.png" alt="Poster Image" class="poster-image" />
+    -->
+
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <p>
+        <!-- Replace this placeholder text with your poster's Abstract -->
+        Large classification models can easily overfit or memorize spurious features. 
+        We explore a label-aware quantization technique to reduce model complexity 
+        while preserving (or even improving) accuracy, especially on smaller or 
+        more focused subsets of data.
+      </p>
+    </section>
+
+    <section id="setup">
+      <h2>Experiment Setup</h2>
+      <p>
+        <!-- Replace this placeholder text with your poster's Experiment Setup -->
+        We evaluate on various CNN architectures. We first measure baseline 
+        performance, then apply a quantization procedure with different 
+        bit-widths, regularization, and data subset sizes.
+      </p>
+    </section>
+
+    <section id="subset-generation">
+      <h2>Subset Generation</h2>
+      <p>
+        <!-- Replace this placeholder text with your poster's Subset Generation details -->
+        We create smaller subsets of CIFAR100 classes based on similarity measures. 
+        These subsets allow us to analyze how label-aware quantization affects 
+        performance when fewer classes are involved.
+      </p>
+    </section>
+
+    <section id="results">
+      <h2>Results</h2>
+      <p>
+        <!-- Replace this placeholder text with your poster's Results discussion -->
+        Our experiments show that carefully chosen subsets plus label-aware 
+        quantization can outperform the original model in certain cases. 
+        We report top-1 and top-5 accuracies, along with memory savings and 
+        sparsity metrics.
+      </p>
+    </section>
+
+    <section id="conclusions">
+      <h2>Conclusions</h2>
+      <p>
+        <!-- Replace this placeholder text with your poster's Conclusions -->
+        In summary, partial CNN usage on subsets of classes can reduce 
+        overfitting while achieving high accuracy. Combined with quantization, 
+        we can significantly reduce model size and improve efficiency.
+      </p>
+    </section>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>&copy; 2025 Label-Aware Quantization | Halıcıoğlu Data Science Institute, UC San Diego</p>
+  </footer>
+
 </body>
 </html>
