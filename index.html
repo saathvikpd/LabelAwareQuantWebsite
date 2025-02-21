@@ -5,84 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>When Less is More: Surprising Gains from Label-Aware Quantization</title>
   <style>
-    /* Basic styling */
+    /* Global Styles */
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       margin: 0;
-      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
       line-height: 1.6;
-      background-color: #f4f4f4;
     }
     header {
-      background: #333;
+      background: linear-gradient(135deg, #4CAF50, #2E7D32);
       color: #fff;
-      padding: 15px 20px;
+      padding: 20px;
       text-align: center;
     }
     nav {
+      background-color: #1976D2;
       display: flex;
       justify-content: center;
-      background: #444;
-      padding: 10px;
+      padding: 10px 0;
     }
     nav a {
       color: #fff;
       text-decoration: none;
-      padding: 10px 15px;
-      margin: 0 5px;
+      padding: 10px 20px;
+      margin: 0 10px;
+      border-radius: 4px;
+      transition: background 0.3s;
     }
     nav a:hover {
-      background: #555;
+      background: rgba(255, 255, 255, 0.2);
     }
     .container {
       width: 90%;
       max-width: 1100px;
       margin: 20px auto;
       padding: 20px;
-      background: #fff;
-      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-      border-radius: 5px;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
     }
     section {
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
     section h2 {
-      border-bottom: 2px solid #ddd;
+      margin-top: 0;
+      color: #1976D2;
+      border-bottom: 3px solid #1976D2;
       padding-bottom: 5px;
     }
     footer {
       background: #333;
       color: #fff;
       text-align: center;
-      padding: 10px;
-      position: relative;
-      bottom: 0;
-      width: 100%;
+      padding: 15px 10px;
     }
-    /* Gallery styles */
-    .gallery {
-      display: flex;
-      flex-wrap: wrap;
+
+    /* Visualization Grid */
+    .visualization-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 20px;
-      justify-content: center;
     }
-    .gallery img {
-      max-width: 300px;
+    .visualization-item {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 10px;
+      text-align: center;
+    }
+    .visualization-item img {
       width: 100%;
+      height: auto;
+      max-height: 300px;
+      object-fit: contain; /* preserves aspect ratio without stretching */
+      border-radius: 4px;
       cursor: pointer;
-      border: 2px solid #ddd;
-      border-radius: 5px;
-      transition: transform 0.3s;
+      transition: transform 0.3s, border-color 0.3s;
     }
-    .gallery img:hover {
-      transform: scale(1.05);
-      border-color: #aaa;
+    .visualization-item img:hover {
+      transform: scale(1.03);
+      border-color: #1976D2;
     }
-    /* Modal styling */
+
+    /* Modal Styles */
     .modal {
-      display: none; /* Hidden by default */
+      display: none;
       position: fixed;
-      z-index: 100;
+      z-index: 1000;
       left: 0;
       top: 0;
       width: 100%;
@@ -94,14 +104,16 @@
       margin: 5% auto;
       display: block;
       max-width: 80%;
+      max-height: 80vh;
+      object-fit: contain; /* ensures no stretching */
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-    .caption {
-      margin: auto;
-      display: block;
-      width: 80%;
+    .modal-caption {
       text-align: center;
+      padding: 10px;
       color: #fff;
-      padding: 10px 0;
+      font-size: 1.2em;
     }
     .close {
       position: absolute;
@@ -111,20 +123,24 @@
       font-size: 40px;
       font-weight: bold;
       cursor: pointer;
+      transition: color 0.3s;
+    }
+    .close:hover {
+      color: #bbb;
     }
   </style>
 </head>
 <body>
   <header>
     <h1>When Less is More: Surprising Gains from Label-Aware Quantization</h1>
-    <p>Saathvik Drisala, Jessica Hung, Ari Julijian, Yiyan Luo, Alex Cotinger, Rayan Saab<br/>
-       Halıcıoğlu Data Science Institute, UC San Diego
-    </p>
+    <p>Saathvik Dirisala, Jessica Hung, Ari Juljulian, Yijun Luo, Alex Cloninger, Rayan Saab<br>
+       Halıcıoğlu Data Science Institute, UC San Diego</p>
   </header>
 
   <nav>
+    <a href="#background">Background</a>
     <a href="#abstract">Abstract</a>
-    <a href="#setup">Experiment Setup</a>
+    <a href="#methods">Methods</a>
     <a href="#subset-generation">Subset Generation</a>
     <a href="#results">Results</a>
     <a href="#visualizations">Visualizations</a>
@@ -132,47 +148,86 @@
   </nav>
 
   <div class="container">
+    <!-- Background Section -->
+    <section id="background">
+      <h2>Background</h2>
+      <p>
+        Deep convolutional neural networks have revolutionized computer vision tasks,
+        achieving state-of-the-art performance on large-scale datasets. However, as models
+        grow in complexity, deploying them on resource-constrained devices becomes challenging.
+        Our research explores label-aware quantization to reduce model size while leveraging
+        class-specific information to maintain or enhance performance.
+      </p>
+    </section>
+
+    <!-- Abstract Section -->
     <section id="abstract">
       <h2>Abstract</h2>
       <p>
-        Brief summary of the research project, including the main objectives and key findings.
+        In this project, we introduce a label-aware quantization strategy that compresses neural networks
+        while enhancing performance, particularly for targeted subsets of data. By selectively quantizing
+        weights and then fine-tuning on these subsets, we achieve surprising gains in accuracy and efficiency.
       </p>
     </section>
 
-    <section id="setup">
-      <h2>Experiment Setup</h2>
-      <p>
-        Explanation of the methods used, including model architectures, quantization parameters, and dataset specifics.
-      </p>
+    <!-- Methods Section -->
+    <section id="methods">
+      <h2>Methods</h2>
+      <ul>
+        <li><strong>Quantization:</strong> A deterministic algorithm (GPFQ) maps full-precision weights to fewer bits.</li>
+        <li><strong>Subset Generation:</strong> Classes are grouped based on similarity, allowing focused quantization.</li>
+        <li><strong>Fine-Tuning:</strong> Post-quantization, models are fine-tuned to recover or improve accuracy.</li>
+      </ul>
     </section>
 
+    <!-- Subset Generation Section -->
     <section id="subset-generation">
       <h2>Subset Generation</h2>
       <p>
-        Details on how subsets were generated from CIFAR100 classes and the rationale behind them.
+        We generate subsets of classes from CIFAR100 to explore how label-aware quantization performs under
+        different levels of class diversity. Similar classes are grouped to minimize accuracy loss while maximizing
+        compression benefits.
       </p>
     </section>
 
+    <!-- Results Section -->
     <section id="results">
       <h2>Results</h2>
       <p>
-        Key findings including accuracy, sparsity metrics, and comparisons between original, quantized, and fine-tuned models.
+        Our experiments reveal that quantized models can outperform or match the original model on specific class subsets,
+        highlighting the effectiveness of label-aware approaches in reducing complexity without sacrificing accuracy.
       </p>
     </section>
 
+    <!-- Visualizations Section -->
     <section id="visualizations">
       <h2>Visualizations</h2>
-      <div class="gallery">
-        <img src="images/Quantization-Process.png" alt="Quantization Process Flowchart" data-caption="Flowchart of the Quantization Process">
-        <img src="images/resnet50.png" alt="ResNet50 Graph" data-caption="Graph of ResNet50 Performance">
-        <img src="images/umap.png" alt="UMAP Class Embeddings" data-caption="UMAP Visualization of All Class Embeddings">
+      <div class="visualization-grid">
+        <div class="visualization-item">
+          <img src="images/Quantization-Process.png"
+               alt="Quantization Process Flowchart"
+               data-caption="Quantization Process Flowchart">
+        </div>
+        <div class="visualization-item">
+          <img src="images/resnet50.png"
+               alt="ResNet50 Graph"
+               data-caption="ResNet50 Performance Graph">
+        </div>
+        <div class="visualization-item">
+          <img src="images/umap.png"
+               alt="UMAP Visualization"
+               data-caption="UMAP Visualization of Class Embeddings">
+        </div>
       </div>
     </section>
 
+    <!-- Conclusions Section -->
     <section id="conclusions">
       <h2>Conclusions</h2>
       <p>
-        Conclusions drawn from the experiments and potential future directions for label-aware quantization research.
+        Label-aware quantization proves to be a viable strategy for model compression, preserving or improving
+        accuracy on carefully chosen subsets of data. Future work will extend these techniques to more complex
+        architectures and larger datasets.
       </p>
     </section>
   </div>
@@ -183,38 +238,4 @@
 
   <!-- Modal Structure -->
   <div id="modal" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="modal-img">
-    <div class="caption" id="modal-caption"></div>
-  </div>
-
-  <script>
-    // Modal functionality for image gallery
-    const modal = document.getElementById("modal");
-    const modalImg = document.getElementById("modal-img");
-    const captionText = document.getElementById("modal-caption");
-    const closeBtn = document.querySelector(".close");
-
-    // Attach click events to all gallery images
-    document.querySelectorAll(".gallery img").forEach(img => {
-      img.addEventListener("click", () => {
-        modal.style.display = "block";
-        modalImg.src = img.src;
-        captionText.innerText = img.getAttribute("data-caption");
-      });
-    });
-
-    // When the close button is clicked, close the modal
-    closeBtn.addEventListener("click", () => {
-      modal.style.display = "none";
-    });
-
-    // Optional: Close modal when clicking outside the modal content
-    window.addEventListener("click", (event) => {
-      if (event.target === modal) {
-        modal.style.display = "none";
-      }
-    });
-  </script>
-</body>
-</html>
+    <span class="close">&times;</s
