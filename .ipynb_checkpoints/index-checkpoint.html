@@ -14,12 +14,128 @@
       color: #333;
       line-height: 1.6;
     }
-    header {
-      background: linear-gradient(135deg, #4CAF50, #2E7D32);
-      color: #fff;
-      padding: 20px;
-      text-align: center;
+    
+    /* Title Styling */
+    header h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      font-weight: bold;
     }
+    
+    /* Adjust authors and mentors container to be horizontal */
+    .authors-mentors {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap; /* Wrap if too long */
+      gap: 40px;
+      margin-top: 10px;
+    }
+    
+    /* Style individual author/mentor sections */
+    .authors, .mentors {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      background: none;
+      padding: 0;
+      box-shadow: none;
+      min-width: auto;
+      flex-wrap: wrap;
+    }
+    
+    /* Label for Authors and Mentors */
+    .authors::before,
+    .mentors::before {
+      content: attr(data-title); /* Display 'Authors' and 'Mentors' */
+      font-size: 18px;
+      font-weight: bold;
+      color: #FFFFFF; /* White for visibility */
+      background: #0D47A1; /* Dark blue for contrast */
+      padding: 5px 12px;
+      border-radius: 6px;
+      display: block;
+      width: fit-content;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+    
+    /* Style individual author/mentor blocks */
+    .authors li, .mentors li {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      font-size: 14px;
+      color: #FFFFFF; /* Dark blue for readability */
+      font-weight: bold;
+      margin: 0 15px;
+    }
+    
+    /* Style the icons under each name */
+    .authors li .icon-links, .mentors li .icon-links {
+      display: flex;
+      gap: 10px;
+      margin-top: 5px;
+    }
+    
+    /* Ensure icons are always visible */
+    .icon-link {
+      color: white !important; /* Set default icon color to white for visibility */
+      font-size: 18px;
+      transition: color 0.2s ease-in-out;
+    }
+    
+    /* Change color on hover */
+    .icon-link:hover {
+      color: #FFD700 !important; /* Gold for hover effect */
+    }
+    
+    /* Ensure background contrast */
+    header {
+      text-align: center;
+      background: #1976D2;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    
+
+    
+    /* Header for each section */
+    .authors h3, .mentors h3 {
+      color: #0D47A1;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    
+    /* Author & Mentor Names */
+    .authors ul, .mentors ul {
+      list-style: none;
+      padding: 0;
+    }
+      
+    /* Email & LinkedIn Links */
+    .authors a, .mentors a {
+      color: #1976D2;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    
+    .authors a:hover, .mentors a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Institution Name */
+    header h4 {
+      font-size: 16px;
+      margin-top: 15px;
+      font-weight: 500;
+      color: #f1f1f1;
+    }
+
     .container {
       width: 90%;
       max-width: 1100px;
@@ -50,42 +166,296 @@
     #y-axis {
       height: 120px;
     }
+
+    /* Container for dropdowns */
+    .controls {
+      display: flex;
+      flex-wrap: nowrap; /* Prevents wrapping */
+      gap: 16px; /* Space between dropdowns */
+      margin-bottom: 20px;
+      padding: 15px;
+      border-radius: 8px;
+      background: #f8f9fa;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+      max-width: 300px; /* Keeps layout compact */
+      align-items: center;
+      white-space: nowrap;
+    }
+    
+    /* Individual dropdown wrapper */
+    .dropdown-wrapper {
+      flex: 1; /* Equal width for both */
+      min-width: 180px;
+      max-width: 200px; /* Prevents dropdowns from taking too much space */
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    
+    /* Dropdown buttons */
+    .multi-select button {
+      width: flex;
+      max-width: 200px; /* Prevents stretching */
+      text-align: left;
+      background: #1976D2;
+      color: white;
+      font-weight: bold;
+      border: none;
+      padding: 8px 10px;
+      cursor: pointer;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.3s ease-in-out;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    
+    .multi-select button:hover {
+      background: #1565C0;
+    }
+    
+    /* Dropdown options box */
+    .dropdown-options {
+      display: none;
+      position: absolute;
+      width: 200px; /* Set fixed width */
+      background: white;
+      border-radius: 6px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+      padding: 8px;
+      z-index: 10;
+      max-height: 150px; /* Limits height and enables scrolling */
+      overflow-y: auto;
+    }
+    
+    /* Dropdown labels */
+    .dropdown-options label {
+      display: block;
+      padding: 6px 8px;
+      text-align: left;
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: background 0.2s;
+    }
+    
+    .dropdown-options label:hover {
+      background: #E3F2FD;
+    }
+    
+    /* Checkbox styling */
+    .dropdown-options input {
+      margin-right: 6px;
+    }
+    
+    /* Show dropdown on hover */
+    .multi-select:hover .dropdown-options {
+      display: block;
+    }
+    
+    /* Titles above dropdowns */
+    .controls label {
+      font-size: 14px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    
+    /* Responsive Fix: Stack on small screens */
+    @media (max-width: 500px) {
+      .controls {
+        flex-wrap: wrap;
+      }
+      .dropdown-wrapper {
+        width: 100%;
+        max-width: none;
+      }
+    }
+
+    /* Tab Navigation */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .tab-button {
+      background: #1976D2;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 6px;
+      transition: background 0.3s ease-in-out;
+    }
+    
+    .tab-button:hover {
+      background: #1565C0;
+    }
+    
+    .tab-button.active {
+      background: #0D47A1;
+    }
+    
+    /* Tab Content */
+    .tab-content {
+      display: none;
+      padding: 20px;
+      background: white;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+
+    footer {
+      width: 100%;
+      text-align: center; /* Centers the text */
+      background: #f8f9fa; /* Light background for contrast */
+      padding: 15px 20px; /* Adds space around the text */
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      border-top: 1px solid #ddd; /* Subtle top border */
+      margin-top: 20px; /* Space between content and footer */
+    }
+      
   </style>
 </head>
 <body>
-  <header>
-    <h1>When Less is More: Surprising Gains from Label-Aware Quantization</h1>
-    <p>Saathvik Dirisala, Jessica Hung, Ari Juljulian, Yijun Luo, Alex Cloninger, Rayan Saab<br>
-       Halıcıoğlu Data Science Institute, UC San Diego</p>
-  </header>
+  <!-- Include FontAwesome for Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-  <div class="container">
-    <section id="visualization">
-      <h2>Interactive Quantization Visualization</h2>
-      <div class="controls">
-        <label for="bit-width">Select Bit-Widths (Hold Ctrl/Cmd for multiple):</label>
-        <select id="bit-width" multiple size="5">
-          <option value="3">3-bit</option>
-          <option value="4">4-bit</option>
-          <option value="8">8-bit</option>
-          <option value="16">16-bit</option>
-          <option value="32">32-bit</option>
-        </select>
-        
-        <label for="y-axis">Select Y-Axis (Hold Ctrl/Cmd for multiple):</label>
-        <select id="y-axis" multiple size="4">
-          <option value="Original Top1 Accuracy">Original Top1 Accuracy</option>
-          <option value="Quantized Top1 Accuracy">Quantized Top1 Accuracy</option>
-          <option value="Fine-Tuned Top1 Accuracy">Fine-Tuned Top1 Accuracy</option>
-          <option value="Quant+FT Top1 Accuracy">Quant+FT Top1 Accuracy</option>
-        </select>
+<header>
+  <h1>When Less is More: Surprising Gains from Label-Aware Quantization</h1>
+  
+  <div class="authors-mentors">
+    <!-- Authors Section -->
+    <ul class="authors" data-title="Authors">
+      <li>
+        <span>Ari Juljulian</span>
+        <div class="icon-links">
+          <a href="mailto:ajuljulian@ucsd.edu" class="icon-link"><i class="fas fa-envelope"></i></a>
+          <a href="https://www.linkedin.com/in/ari-juljulian-692abb245/" target="_blank" class="icon-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </li>
+      <li>
+        <span>Jessica Hung</span>
+        <div class="icon-links">
+          <a href="mailto:yuhung@ucsd.edu" class="icon-link"><i class="fas fa-envelope"></i></a>
+          <a href="https://www.linkedin.com/in/jessica-hung-020a0a231/" target="_blank" class="icon-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </li>
+      <li>
+        <span>Saathvik Dirisala</span>
+        <div class="icon-links">
+          <a href="mailto:sdirisala@ucsd.edu" class="icon-link"><i class="fas fa-envelope"></i></a>
+          <a href="https://www.linkedin.com/in/saathvik-dirisala-4a1817197/" target="_blank" class="icon-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </li>
+      <li>
+        <span>Yijun Luo</span>
+        <div class="icon-links">
+          <a href="mailto:yil176@ucsd.edu" class="icon-link"><i class="fas fa-envelope"></i></a>
+          <a href="https://www.linkedin.com/in/jack-yijun-luo/" target="_blank" class="icon-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </li>
+    </ul>
 
-
-      </div>
-
-      <div id="chart"></div>
-    </section>
+    <!-- Mentors Section -->
+    <ul class="mentors" data-title="Mentors">
+      <li>
+        <span>Dr. Alex Cloninger</span>
+        <div class="icon-links">
+          <a href="mailto:acloninger@ucsd.edu" class="icon-link"><i class="fas fa-envelope"></i></a>
+          <a href="https://www.linkedin.com/in/alexander-cloninger-9b5877133/" target="_blank" class="icon-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </li>
+      <li>
+        <span>Dr. Rayan Saab</span>
+        <div class="icon-links">
+          <a href="mailto:rsaab@ucsd.edu" class="icon-link"><i class="fas fa-envelope"></i></a>
+          <a href="https://www.linkedin.com/in/rayan-saab-46302a1a/" target="_blank" class="icon-link"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </li>
+    </ul>
   </div>
+
+  <h4>Halıcıoğlu Data Science Institute, UC San Diego</h4>
+</header>
+
+
+
+
+
+    <div class="container">
+    <!-- Tab Navigation -->
+    <div class="tabs">
+      <button class="tab-button active" onclick="openTab(event, 'introduction')">Introduction</button>
+      <button class="tab-button" onclick="openTab(event, 'methods')">Methods</button>
+      <button class="tab-button" onclick="openTab(event, 'results')">Results</button>
+      <button class="tab-button" onclick="openTab(event, 'conclusion')">Conclusion</button>
+    </div>
+
+    <!-- Tab Content -->
+    <div id="introduction" class="tab-content active">
+      <h2>Introduction</h2>
+      <p>Welcome to our research on Label-Aware Quantization. This study explores how strategic quantization can enhance model performance while maintaining efficiency.</p>
+    </div>
+
+    <div id="methods" class="tab-content">
+      <h2>Methods</h2>
+      <p>We employ a label-aware quantization approach, applying different bit-width settings while analyzing its effect on top-1 accuracy.</p>
+    </div>
+
+    <div id="results" class="tab-content">
+      <h2>Results</h2>
+      <p>Our findings demonstrate that lower-bit quantization can sometimes lead to performance gains due to label-aware strategies.</p>
+      
+      <!-- Interactive Visualization -->
+      <section id="visualization">
+        <h2>Interactive Quantization Visualization</h2>
+          <div class="controls">
+            <div class="multi-select">
+              <button id="bit-width-toggle">Select Bit-Widths ▼</button>
+              <div id="bit-width-options" class="dropdown-options">
+                <label><input type="checkbox" value="3"> 3-bit</label>
+                <label><input type="checkbox" value="4" checked> 4-bit</label>
+                <label><input type="checkbox" value="8"> 8-bit</label>
+                <label><input type="checkbox" value="16"> 16-bit</label>
+                <label><input type="checkbox" value="32"> 32-bit</label>
+              </div>
+            </div>
+
+            <div class="multi-select">
+              <button id="y-axis-toggle">Select Y-Axis ▼</button>
+              <div id="y-axis-options" class="dropdown-options">
+                <label><input type="checkbox" value="Original Top1 Accuracy" checked> Original Model</label>
+                <label><input type="checkbox" value="Quantized Top1 Accuracy" checked> Quantized Model</label>
+                <label><input type="checkbox" value="Fine-Tuned Top1 Accuracy" checked> Fine-Tuned Model</label>
+                <label><input type="checkbox" value="Quant+FT Top1 Accuracy" checked> FT + Quant Model</label>
+              </div>
+            </div>
+          </div>
+
+        <div id="chart"></div>
+      </section>
+    </div>
+
+    <div id="conclusion" class="tab-content">
+      <h2>Conclusion</h2>
+      <p>Our results indicate that Label-Aware Quantization can lead to unexpected accuracy improvements, opening up new avenues for research in efficient deep learning.</p>
+    </div>
+  </div>
+
 
   <footer>
     <p>&copy; 2025 Label-Aware Quantization | Halıcıoğlu Data Science Institute, UC San Diego</p>
