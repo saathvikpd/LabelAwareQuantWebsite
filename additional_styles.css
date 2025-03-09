@@ -1,0 +1,111 @@
+/* Tooltip Styles */
+.tooltip {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    pointer-events: none;
+    font-size: 12px;
+    z-index: 1000;
+    max-width: 300px;
+    line-height: 1.4;
+    color: #333;
+  }
+  
+  /* Visualization Enhancements */
+  #chart svg {
+    display: block;
+    margin: 0 auto;
+    background-color: #fafbfc;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  #chart {
+    padding: 10px;
+    position: relative;
+    overflow: visible;
+  }
+  
+  /* Make the chart controls more attractive */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+  }
+  
+  /* Highlight interesting data points */
+  circle.highlight {
+    stroke: #ff5722;
+    stroke-width: 2px;
+    r: 7;
+  }
+  
+  /* Add a title above the chart */
+  .chart-title-container {
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #0D47A1;
+  }
+  
+  /* Grid lines styling */
+  .grid line {
+    stroke: #e0e0e0;
+  }
+  
+  /* Improved tab styling */
+  .tab-button {
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .tab-button:hover {
+    background: #1565C0;
+    transform: translateY(-2px);
+  }
+  
+  .tab-button.active {
+    background: #0D47A1;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  /* Add description text styling */
+  .chart-description {
+    margin: 20px auto;
+    max-width: 800px;
+    line-height: 1.5;
+    color: #333;
+    font-size: 14px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #1976D2;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .controls {
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    #chart svg {
+      width: 100%;
+      height: auto;
+    }
+    
+    .tooltip {
+      max-width: 200px;
+      font-size: 11px;
+    }
+  }
