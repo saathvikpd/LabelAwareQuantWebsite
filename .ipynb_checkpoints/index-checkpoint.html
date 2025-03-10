@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>When Less is More: Surprising Gains from Label-Aware Quantization</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
+
+
+
+
   <style>
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -419,6 +423,52 @@
       color: #666;
     }
 
+    .results-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+    
+    #class-info {
+        width: 280px;
+        padding: 15px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        font-size: 14px;
+        margin-left: 20px;
+        align-self: flex-start;
+    }
+    
+
+    #subset-classes {
+        list-style-type: none;
+        padding: 0;
+    }
+    
+    #subset-classes li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 5px;
+        background: #f8f9fa;
+        border-radius: 5px;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    
+    .class-img {
+        width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+    }
+
+
+
+
+
   </style>
 </head>
 <body>
@@ -622,19 +672,27 @@
               </div>
             </div>
 
-        <div id="chart"></div>
+        <div class="results-container">
+            <div id="chart"></div>
+            <div id="class-info">
+                <h3>Selected Data Point</h3>
+                <p><strong>Subset Classes:</strong></p>
+                <ul id="subset-classes"></ul>
+            </div>
+        </div>
+
       </section>
     </div>
 
     <div id="conclusion" class="tab-content">
       <h2>Conclusion</h2>
-      <p>Our results indicate that Label-Aware Quantization can lead to unexpected accuracy improvements, opening up new avenues for research in efficient deep learning.</p>
+      <p>Our study demonstrates that label-aware quantization effectiveness is strongly influenced by inter-class similarity, with higher accuracy maintained when quantizing for dissimilar class subsets across all tested architectures. While ResNet50, VGG16, and GoogleNet demonstrated strong resilience to 4-bit precision reduction, MobileNetV2 exhibited significantly greater sensitivity. This shows how fundamental architecture design significantly influences quantization effectiveness. We observed that fine-tuning provides greater benefits for similar-class tasks, whereas direct label-aware quantization performs best with distinct classes. These findings offer practical solutions for resource-constrained environments: developers can apply label-aware quantization directly for tasks involving distinct objects, while fine-tuning before quantization would be better suited for similar-class tasks. This approach enables significant model compression while maintaining high accuracy for specific subtasks, emphasizing the viability of neural network quantization in resource-constrained edge devices.</p>
     </div>
   </div>
 
 
   <footer>
-    <p>&copy; 2025 Label-Aware Quantization | Halıcıoğlu Data Science Institute, UC San Diego</p>
+    <p>Halıcıoğlu Data Science Institute, UC San Diego</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/d3-interpolate-path@2.0.1/build/d3-interpolate-path.min.js"></script>

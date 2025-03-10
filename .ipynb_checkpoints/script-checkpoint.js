@@ -120,38 +120,80 @@ function updateChart() {
     
         const scatterGroup = svg.append("g").attr("class", "scatter-group");
     
-        scatterGroup.selectAll("circle")
-          .data(dataSubset)
-          .enter()
-          .append("circle")
-          .attr("cx", d => xScale(d["Median_KL"]))
-          .attr("cy", d => {
-            const columnName = evalMethod === "Sub" ? `${yAxis} (Pick Sub)` : yAxis;
-            return yScale(d[columnName]);
-          })
-          .attr("r", 5)
-          .attr("fill", color)
-          .attr("opacity", 0.8)
-          .attr("stroke", "#333")
-          .attr("stroke-width", 1)
-          .on("mouseover", function(event, d) {
-            const columnName = evalMethod === "Sub" ? `${yAxis} (Pick Sub)` : yAxis;
-            d3.select("#tooltip")
-              .style("display", "block")
-              .html(
-                `<strong>${legendMap["yAxis"][yAxis]} (${legendMap["bit"][bit]})</strong><br>
-                 <strong>Median ICD:</strong> ${d["Median_KL"].toFixed(3)}<br>
-                 <strong>Top-1 Accuracy:</strong> ${d[columnName].toFixed(3)}`
-              );
-          })
-          .on("mousemove", function(event) {
-            d3.select("#tooltip")
-              .style("left", (event.pageX + 10) + "px")
-              .style("top", (event.pageY - 20) + "px");
-          })
-          .on("mouseout", function() {
-            d3.select("#tooltip").style("display", "none");
-          });
+        // scatterGroup.selectAll("circle")
+        //     .data(dataSubset)
+        //     .enter()
+        //     .append("circle")
+        //     .attr("cx", d => xScale(d["Median_KL"]))
+        //     .attr("cy", d => {
+        //         const columnName = evalMethod === "Sub" ? `${yAxis} (Pick Sub)` : yAxis;
+        //         return yScale(d[columnName]);
+        //     })
+        //     .attr("r", 5)
+        //     .attr("fill", color)
+        //     .attr("opacity", 0.8)
+        //     .attr("stroke", "#333")
+        //     .attr("stroke-width", 1)
+        //     .on("mouseover", function(event, d) {
+        //         const columnName = evalMethod === "Sub" ? `${yAxis} (Pick Sub)` : yAxis;
+        //         d3.select("#tooltip")
+        //             .style("display", "block")
+        //             .html(
+        //                 `<strong>${legendMap["yAxis"][yAxis]} (${legendMap["bit"][bit]})</strong><br>
+        //                  <strong>Median ICD:</strong> ${d["Median_KL"].toFixed(3)}<br>
+        //                  <strong>Top-1 Accuracy:</strong> ${d[columnName].toFixed(3)}`
+        //             );
+        //     })
+        //     .on("mousemove", function(event) {
+        //         d3.select("#tooltip")
+        //             .style("left", (event.pageX + 10) + "px")
+        //             .style("top", (event.pageY - 20) + "px");
+        //     })
+        //     .on("mouseout", function() {
+        //         d3.select("#tooltip").style("display", "none");
+        //     })
+        //     .on("click", function(event, d) {
+        //         updateClassInfo(d["Subset_Classes"]);
+        //     });
+
+          scatterGroup.selectAll("circle")
+            .data(dataSubset)
+            .enter()
+            .append("circle")
+            .attr("cx", d => xScale(d["Median_KL"]))
+            .attr("cy", d => {
+                const columnName = evalMethod === "Sub" ? `${yAxis} (Pick Sub)` : yAxis;
+                return yScale(d[columnName]);
+            })
+            .attr("r", 5)
+            .attr("fill", color)
+            .attr("opacity", 0.8)
+            .attr("stroke", "#333")
+            .attr("stroke-width", 1)
+            .on("mouseover", function(event, d) {
+                const columnName = evalMethod === "Sub" ? `${yAxis} (Pick Sub)` : yAxis;
+                d3.select("#tooltip")
+                    .style("display", "block")
+                    .html(
+                        `<strong>${legendMap["yAxis"][yAxis]} (${legendMap["bit"][bit]})</strong><br>
+                         <strong>Median ICD:</strong> ${d["Median_KL"].toFixed(3)}<br>
+                         <strong>Top-1 Accuracy:</strong> ${d[columnName].toFixed(3)}`
+                    );
+            })
+            .on("mousemove", function(event) {
+                d3.select("#tooltip")
+                    .style("left", (event.pageX + 10) + "px")
+                    .style("top", (event.pageY - 20) + "px");
+            })
+            .on("mouseout", function() {
+                d3.select("#tooltip").style("display", "none");
+            })
+            .on("click", function(event, d) {
+                const columnName = evalMethod === "Sub" ? `${yAxis} (Pick Sub)` : yAxis;
+                updateClassInfo(
+                    d["Subset_Classes"]
+                );
+            });
 
         addLogLine(dataSubset, xScale, yScale, yAxis, color, bit);
       });
@@ -160,6 +202,22 @@ function updateChart() {
   });
 
   document.getElementById("evaluation-label").textContent = evalMethod;
+}
+
+function updateClassInfo(subsetClasses) {
+    const classList = document.getElementById("subset-classes");
+    classList.innerHTML = "";
+
+    if (subsetClasses) {
+        let cleanedClasses = subsetClasses.replace(/[\[\]']+/g, "");
+        let classes = cleanedClasses.split(",");
+
+        classes.forEach(cls => {
+            const li = document.createElement("li");
+            li.textContent = cls.trim();
+            classList.appendChild(li);
+        });
+    }
 }
 
 function updateLegend(yAxisSelection, bitWidths) {
