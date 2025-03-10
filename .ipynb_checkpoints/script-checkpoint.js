@@ -9,7 +9,7 @@ const fileMap = {
 };
 
 const margin = { top: 40, right: 300, bottom: 50, left: 70 },
-      width = Math.min(900, window.innerWidth - margin.left - margin.right),
+      width = 900 - margin.left - margin.right,
       height = 500 - margin.top - margin.bottom;
 
 const svg = d3.select("#chart")
@@ -277,10 +277,6 @@ document.addEventListener("DOMContentLoaded", function() {
 document.getElementById("evaluation-toggle").addEventListener("change", updateChart);
 
 updateChart();
-
-window.addEventListener("resize", () => {
-  updateChart(); 
-});
 
 
 
