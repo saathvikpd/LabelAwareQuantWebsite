@@ -6,7 +6,6 @@
   <title>When Less is More: Surprising Gains from Label-Aware Quantization</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
-    /* Global Styles */
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       margin: 0;
@@ -15,23 +14,20 @@
       line-height: 1.6;
     }
     
-    /* Title Styling */
     header h1 {
       font-size: 28px;
       margin-bottom: 10px;
       font-weight: bold;
     }
-    
-    /* Adjust authors and mentors container to be horizontal */
+
     .authors-mentors {
       display: flex;
       justify-content: center;
-      flex-wrap: wrap; /* Wrap if too long */
+      flex-wrap: wrap;
       gap: 40px;
       margin-top: 10px;
     }
-    
-    /* Style individual author/mentor sections */
+
     .authors, .mentors {
       display: flex;
       justify-content: center;
@@ -42,15 +38,14 @@
       min-width: auto;
       flex-wrap: wrap;
     }
-    
-    /* Label for Authors and Mentors */
+
     .authors::before,
     .mentors::before {
-      content: attr(data-title); /* Display 'Authors' and 'Mentors' */
+      content: attr(data-title);
       font-size: 18px;
       font-weight: bold;
-      color: #FFFFFF; /* White for visibility */
-      background: #0D47A1; /* Dark blue for contrast */
+      color: #FFFFFF;
+      background: #0D47A1;
       padding: 5px 12px;
       border-radius: 6px;
       display: block;
@@ -58,39 +53,34 @@
       text-align: center;
       margin-bottom: 15px;
     }
-    
-    /* Style individual author/mentor blocks */
+
     .authors li, .mentors li {
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
       font-size: 14px;
-      color: #FFFFFF; /* Dark blue for readability */
+      color: #FFFFFF;
       font-weight: bold;
       margin: 0 15px;
     }
-    
-    /* Style the icons under each name */
+
     .authors li .icon-links, .mentors li .icon-links {
       display: flex;
       gap: 10px;
       margin-top: 5px;
     }
-    
-    /* Ensure icons are always visible */
+
     .icon-link {
-      color: white !important; /* Set default icon color to white for visibility */
+      color: white !important;
       font-size: 18px;
       transition: color 0.2s ease-in-out;
     }
-    
-    /* Change color on hover */
+
     .icon-link:hover {
-      color: #FFD700 !important; /* Gold for hover effect */
+      color: #FFD700 !important; 
     }
-    
-    /* Ensure background contrast */
+
     header {
       text-align: center;
       background: #1976D2;
@@ -101,23 +91,17 @@
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     }
 
-    
-
-    
-    /* Header for each section */
     .authors h3, .mentors h3 {
       color: #0D47A1;
       font-size: 18px;
       margin-bottom: 8px;
     }
     
-    /* Author & Mentor Names */
     .authors ul, .mentors ul {
       list-style: none;
       padding: 0;
     }
-      
-    /* Email & LinkedIn Links */
+    
     .authors a, .mentors a {
       color: #1976D2;
       font-weight: 600;
@@ -128,7 +112,6 @@
       text-decoration: underline;
     }
     
-    /* Institution Name */
     header h4 {
       font-size: 16px;
       margin-top: 15px;
@@ -169,9 +152,9 @@
 
     .controls {
       display: flex;
-      flex-wrap: wrap; /* Ensures responsiveness */
+      flex-wrap: wrap;
       align-items: center;
-      gap: 12px; /* Spacing between elements */
+      gap: 12px;
       justify-content: center;
       background: #f8f9fa;
       padding: 15px;
@@ -179,21 +162,18 @@
       box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
     }
 
-    
-    /* Individual dropdown wrapper */
     .dropdown-wrapper {
-      flex: 1; /* Equal width for both */
+      flex: 1;
       min-width: 180px;
-      max-width: 200px; /* Prevents dropdowns from taking too much space */
+      max-width: 200px;
       display: flex;
       flex-direction: column;
       position: relative;
     }
-    
-    /* Dropdown buttons */
+
     .multi-select button {
       width: flex;
-      max-width: 200px; /* Prevents stretching */
+      max-width: 200px;
       text-align: left;
       background: #1976D2;
       color: white;
@@ -213,22 +193,20 @@
     .multi-select button:hover {
       background: #1565C0;
     }
-    
-    /* Dropdown options box */
+
     .dropdown-options {
       display: none;
       position: absolute;
-      width: 200px; /* Set fixed width */
+      width: 200px;
       background: white;
       border-radius: 6px;
       box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
       padding: 8px;
       z-index: 10;
-      max-height: 150px; /* Limits height and enables scrolling */
+      max-height: 150px;
       overflow-y: auto;
     }
-    
-    /* Dropdown labels */
+
     .dropdown-options label {
       display: block;
       padding: 6px 8px;
@@ -244,18 +222,15 @@
     .dropdown-options label:hover {
       background: #E3F2FD;
     }
-    
-    /* Checkbox styling */
+
     .dropdown-options input {
       margin-right: 6px;
     }
-    
-    /* Show dropdown on hover */
+
     .multi-select:hover .dropdown-options {
       display: block;
     }
     
-    /* Titles above dropdowns */
     .controls label {
       font-size: 14px;
       font-weight: bold;
@@ -263,7 +238,6 @@
       margin-bottom: 4px;
     }
     
-    /* Responsive Fix: Stack on small screens */
     @media (max-width: 500px) {
       .controls {
         flex-wrap: wrap;
@@ -274,7 +248,6 @@
       }
     }
 
-    /* Tab Navigation */
     .tabs {
       display: flex;
       justify-content: center;
@@ -316,17 +289,16 @@
 
     footer {
       width: 100%;
-      text-align: center; /* Centers the text */
-      background: #f8f9fa; /* Light background for contrast */
-      padding: 15px 20px; /* Adds space around the text */
+      text-align: center;
+      background: #f8f9fa;
+      padding: 15px 20px;
       font-size: 14px;
       font-weight: 500;
       color: #333;
-      border-top: 1px solid #ddd; /* Subtle top border */
-      margin-top: 20px; /* Space between content and footer */
+      border-top: 1px solid #ddd;
+      margin-top: 20px;
     }
 
-    /* Toggle Container - Ensures Alignment */
     .toggle-container {
       display: flex;
       align-items: center;
@@ -338,25 +310,22 @@
       padding: 10px 15px;
       border-radius: 8px;
       box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-      min-width: 220px; /* Prevents shrinking */
+      min-width: 220px;
       justify-content: space-between;
     }
-    
-    /* Toggle Switch */
+
     .toggle-switch {
       position: relative;
       width: 50px;
       height: 26px;
     }
-    
-    /* Hide default checkbox */
+
     .toggle-switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
-    
-    /* Slider */
+
     .slider {
       position: absolute;
       cursor: pointer;
@@ -366,8 +335,7 @@
       height: 100%;
       transition: 0.3s;
     }
-    
-    /* Circle inside the toggle */
+
     .slider::before {
       content: "";
       position: absolute;
@@ -380,7 +348,6 @@
       transition: 0.3s;
     }
     
-    /* Toggle ON state */
     input:checked + .slider {
       background-color: #1976D2;
     }
@@ -388,13 +355,12 @@
     input:checked + .slider::before {
       transform: translateX(24px);
     }
-    
-    /* Evaluation Label - Ensures it stays visible */
+
     #evaluation-label {
       font-size: 16px;
       font-weight: bold;
       color: #1976D2;
-      min-width: 40px; /* Prevents it from shrinking */
+      min-width: 40px;
       text-align: center;
     }
 
@@ -416,7 +382,6 @@
       margin-top: 8px;
     }
 
-    /* Methods Section Layout */
     .methods-container {
       display: flex;
       align-items: flex-start;
@@ -425,13 +390,11 @@
       flex-wrap: wrap;
     }
     
-    /* Methods Text (Left Side) */
     .methods-text {
       flex: 1;
       min-width: 300px;
     }
     
-    /* Methods Images (Right Side) */
     .methods-images {
       display: flex;
       flex-direction: column;
@@ -441,39 +404,29 @@
       max-width: 50%;
     }
     
-    /* Resize Images */
     .methods-images img {
-      width: 80%; /* Adjust width */
-      max-width: 400px; /* Set max width */
+      width: 80%;
+      max-width: 400px;
       height: auto;
       border-radius: 8px;
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
       margin-bottom: 10px;
     }
     
-    /* Center Figure Captions */
     .methods-images figcaption {
       text-align: center;
       font-size: 14px;
       color: #666;
     }
 
-
-
-
-
-      
   </style>
 </head>
 <body>
-  <!-- Include FontAwesome for Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 <header>
   <h1>When Less is More: Surprising Gains from Label-Aware Quantization</h1>
   
   <div class="authors-mentors">
-    <!-- Authors Section -->
     <ul class="authors" data-title="Authors">
       <li>
         <span>Ari Juljulian</span>
@@ -505,7 +458,6 @@
       </li>
     </ul>
 
-    <!-- Mentors Section -->
     <ul class="mentors" data-title="Mentors">
       <li>
         <span>Dr. Alex Cloninger</span>
@@ -527,7 +479,6 @@
   <h4>Halıcıoğlu Data Science Institute, UC San Diego</h4>
 </header>
 
-<!-- Tooltip for Scatter Plot -->
 <div id="tooltip" style="
   position: absolute; 
   display: none; 
@@ -539,12 +490,7 @@
   box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
   pointer-events: none;">
 </div>
-
-
-
-
     <div class="container">
-    <!-- Tab Navigation -->
     <div class="tabs">
       <button class="tab-button" onclick="openTab(event, 'introduction')">Introduction</button>
       <button class="tab-button" onclick="openTab(event, 'dataset')">Dataset</button>
@@ -552,8 +498,6 @@
       <button class="tab-button active" onclick="openTab(event, 'results')">Results</button>
       <button class="tab-button" onclick="openTab(event, 'conclusion')">Conclusion</button>
     </div>
-
-    <!-- Tab Content -->
     <div id="introduction" class="tab-content">
       <h2>Introduction</h2>
       <p><strong>What is Label-Aware Quantization (LAQ)?</strong></p>
@@ -587,8 +531,7 @@
         <li>Train Set: 50,000 images (500 per class)</li>
         <li>Test Set: 10,000 images (100 per class)</li>
       </ul>
-    
-      <!-- Add Image Here -->
+
       <figure>
         <img src="images/umap.png" alt="Dataset Visualization" width="600">
         <figcaption>Figure 1: Visualizing Class Centers</figcaption>
@@ -596,57 +539,50 @@
     </div>
 
     
-<div id="methods" class="tab-content">
-  <h2>Methods</h2>
-
-  <!-- First Row: Subset Generation + First Image -->
-  <div class="methods-row">
-    <div class="methods-text">
-      <p><strong>Subset Generation (From Section 3):</strong></p>
-      <ol>
-        <li><strong>Feature Extraction (FE):</strong> Flattened output of convolutional layers from a pre-trained ResNet-50 (2048 dimensions).</li>
-        <li><strong>Dimensionality Reduction (DR):</strong> UMAP preserves cluster structure & location (2 dimensions).</li>
-        <li><strong>Inter-Class Distance (ICD):</strong> KL divergence (Gaussian closed-form) for every unique pair of classes.</li>
-        <li><strong>Subset Selection:</strong> Selecting 10 classes greedily based on inter-class similarity for spread along the x-axis:
+    <div id="methods" class="tab-content">
+      <h2>Methods</h2>
+      <div class="methods-row">
+        <div class="methods-text">
+          <p><strong>Subset Generation (From Section 3):</strong></p>
+          <ol>
+            <li><strong>Feature Extraction (FE):</strong> Flattened output of convolutional layers from a pre-trained ResNet-50 (2048 dimensions).</li>
+            <li><strong>Dimensionality Reduction (DR):</strong> UMAP preserves cluster structure & location (2 dimensions).</li>
+            <li><strong>Inter-Class Distance (ICD):</strong> KL divergence (Gaussian closed-form) for every unique pair of classes.</li>
+            <li><strong>Subset Selection:</strong> Selecting 10 classes greedily based on inter-class similarity for spread along the x-axis:
+              <ul>
+                <li>Similar Classes: Low Median Distance</li>
+                <li>Dissimilar Classes: High Median Distance</li>
+                <li>Random Classes: Intermediate Median Distance</li>
+              </ul>
+            </li>
+          </ol>
+        </div>
+        <div class="methods-image">
+          <figure>
+            <img src="images/data_processing.png" alt="Data Processing">
+            <figcaption>Figure 2: Data Preprocessing & Generation</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="methods-row">
+        <div class="methods-text">
+          <p><strong>Model Variations (From Section 4):</strong></p>
           <ul>
-            <li>Similar Classes: Low Median Distance</li>
-            <li>Dissimilar Classes: High Median Distance</li>
-            <li>Random Classes: Intermediate Median Distance</li>
+            <li><strong>Original:</strong> Uses pre-trained weights.</li>
+            <li><strong>Quant:</strong> Quantized using the training split of the subset.</li>
+            <li><strong>Fine-Tuned (FT):</strong> Fine-tuned using the training split of the subset.</li>
+            <li><strong>FT + Quant:</strong> Fine-tuned first, then quantized.</li>
           </ul>
-        </li>
-      </ol>
+        </div>
+        <div class="methods-image">
+          <figure>
+            <img src="images/workflow.png" alt="Workflow">
+            <figcaption>Figure 3: Experimental Setup</figcaption>
+          </figure>
+        </div>
+      </div>
     </div>
-    <div class="methods-image">
-      <figure>
-        <img src="images/data_processing.png" alt="Data Processing">
-        <figcaption>Figure 2: Data Preprocessing & Generation</figcaption>
-      </figure>
-    </div>
-  </div>
-
-  <!-- Second Row: Model Variations + Second Image -->
-  <div class="methods-row">
-    <div class="methods-text">
-      <p><strong>Model Variations (From Section 4):</strong></p>
-      <ul>
-        <li><strong>Original:</strong> Uses pre-trained weights.</li>
-        <li><strong>Quant:</strong> Quantized using the training split of the subset.</li>
-        <li><strong>Fine-Tuned (FT):</strong> Fine-tuned using the training split of the subset.</li>
-        <li><strong>FT + Quant:</strong> Fine-tuned first, then quantized.</li>
-      </ul>
-    </div>
-    <div class="methods-image">
-      <figure>
-        <img src="images/workflow.png" alt="Workflow">
-        <figcaption>Figure 3: Experimental Setup</figcaption>
-      </figure>
-    </div>
-  </div>
-</div>
-
-
-
-
+        
     <div id="results" class="tab-content active">
       <h2>Results</h2>
       
@@ -659,10 +595,9 @@
                 <input type="checkbox" id="evaluation-toggle">
                 <span class="slider"></span>
               </label>
-              <span id="evaluation-label">All</span> <!-- Ensure this is not inside the toggle -->
+              <span id="evaluation-label">All</span>
             </div>
 
-            
               <div class="multi-select">
                 <button id="bit-width-toggle">Select Bit-Widths ▼</button>
                 <div id="bit-width-options" class="dropdown-options">
@@ -687,7 +622,6 @@
               </div>
             </div>
 
-
         <div id="chart"></div>
       </section>
     </div>
@@ -704,6 +638,6 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/d3-interpolate-path@2.0.1/build/d3-interpolate-path.min.js"></script>
-  <script src="script.js?v=2"></script>
+  <script src="script.js"></script>
 </body>
 </html>
