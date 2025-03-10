@@ -120,43 +120,7 @@ function updateChart() {
     
         const scatterGroup = svg.append("g").attr("class", "scatter-group");
     
-        // scatterGroup.selectAll("circle")
-        //     .data(dataSubset)
-        //     .enter()
-        //     .append("circle")
-        //     .attr("cx", d => xScale(d["Median_KL"]))
-        //     .attr("cy", d => {
-        //         const columnName = evalMethod === "Sub" ? `${yAxis} (Pick Sub)` : yAxis;
-        //         return yScale(d[columnName]);
-        //     })
-        //     .attr("r", 5)
-        //     .attr("fill", color)
-        //     .attr("opacity", 0.8)
-        //     .attr("stroke", "#333")
-        //     .attr("stroke-width", 1)
-        //     .on("mouseover", function(event, d) {
-        //         const columnName = evalMethod === "Sub" ? `${yAxis} (Pick Sub)` : yAxis;
-        //         d3.select("#tooltip")
-        //             .style("display", "block")
-        //             .html(
-        //                 `<strong>${legendMap["yAxis"][yAxis]} (${legendMap["bit"][bit]})</strong><br>
-        //                  <strong>Median ICD:</strong> ${d["Median_KL"].toFixed(3)}<br>
-        //                  <strong>Top-1 Accuracy:</strong> ${d[columnName].toFixed(3)}`
-        //             );
-        //     })
-        //     .on("mousemove", function(event) {
-        //         d3.select("#tooltip")
-        //             .style("left", (event.pageX + 10) + "px")
-        //             .style("top", (event.pageY - 20) + "px");
-        //     })
-        //     .on("mouseout", function() {
-        //         d3.select("#tooltip").style("display", "none");
-        //     })
-        //     .on("click", function(event, d) {
-        //         updateClassInfo(d["Subset_Classes"]);
-        //     });
-
-          scatterGroup.selectAll("circle")
+        scatterGroup.selectAll("circle")
             .data(dataSubset)
             .enter()
             .append("circle")
@@ -189,12 +153,9 @@ function updateChart() {
                 d3.select("#tooltip").style("display", "none");
             })
             .on("click", function(event, d) {
-                const columnName = evalMethod === "Sub" ? `${yAxis} (Pick Sub)` : yAxis;
-                updateClassInfo(
-                    d["Subset_Classes"]
-                );
+                updateClassInfo(d["Subset_Classes"]);
             });
-
+        
         addLogLine(dataSubset, xScale, yScale, yAxis, color, bit);
       });
     });
@@ -204,21 +165,110 @@ function updateChart() {
   document.getElementById("evaluation-label").textContent = evalMethod;
 }
 
+// function updateClassInfo(subsetClasses) {
+//     const classList = document.getElementById("subset-classes");
+//     classList.innerHTML = "";
+
+//     if (subsetClasses) {
+//         let cleanedClasses = subsetClasses.replace(/[\[\]']+/g, "");
+//         let classes = cleanedClasses.split(",").map(cls => cls.trim());
+
+//         classes.forEach(className => {
+//             console.log(`Trying to load: cifar100_samples/${className}.png`);
+
+//             // Create container for each class + image
+//             const itemContainer = document.createElement("div");
+//             itemContainer.style.display = "flex";
+//             itemContainer.style.alignItems = "center";
+//             itemContainer.style.marginBottom = "8px"; // Spacing between items
+
+//             // Create text element for class name
+//             const textElement = document.createElement("span");
+//             textElement.textContent = className;
+//             textElement.style.fontSize = "16px";
+//             textElement.style.marginLeft = "10px"; // Space between text and image
+
+//             // Create image element
+//             const img = document.createElement("img");
+//             img.src = `cifar100_samples/${className}.png`;
+//             img.alt = className;
+//             img.style.width = "50px";  // Adjust size as needed
+//             img.style.height = "50px";
+//             img.style.borderRadius = "5px";
+//             img.style.boxShadow = "0px 4px 8px rgba(0, 0, 0, 0.1)";
+
+//             // Hide broken images
+//             img.onerror = function () {
+//                 console.error(`Image not found: ${img.src}`);
+//                 img.style.display = "none";
+//             };
+
+//             // Append elements
+//             itemContainer.appendChild(img);
+//             itemContainer.appendChild(textElement);
+//             classList.appendChild(itemContainer);
+//         });
+//     }
+// }
+
 function updateClassInfo(subsetClasses) {
     const classList = document.getElementById("subset-classes");
     classList.innerHTML = "";
 
+    if (!subsetClasses || subsetClasses.trim() === "") {
+        classList.innerHTML = "<p style='color: #000000; font-size: 14px; text-align: center;'>Click on a point to see the data</p>";
+        return;
+    }
+
     if (subsetClasses) {
         let cleanedClasses = subsetClasses.replace(/[\[\]']+/g, "");
-        let classes = cleanedClasses.split(",");
+        let classes = cleanedClasses.split(",").map(cls => cls.trim());
 
-        classes.forEach(cls => {
-            const li = document.createElement("li");
-            li.textContent = cls.trim();
-            classList.appendChild(li);
+        classes.forEach(className => {
+            console.log(`Trying to load: cifar100_samples/${className}.png`);
+
+            // Create container for each class + image
+            const itemContainer = document.createElement("div");
+            itemContainer.style.display = "flex";
+            itemContainer.style.alignItems = "center";
+            itemContainer.style.justifyContent = "space-between";
+            itemContainer.style.padding = "5px 10px";
+            itemContainer.style.border = "1px solid #ddd";
+            itemContainer.style.borderRadius = "6px";
+            itemContainer.style.background = "white";
+
+            // Create text element for class name
+            const textElement = document.createElement("span");
+            textElement.textContent = className;
+            textElement.style.fontSize = "14px";
+            textElement.style.fontWeight = "bold";
+            textElement.style.color = "#333";
+
+            // Create image element
+            const img = document.createElement("img");
+            img.src = `cifar100_samples/${className}.png`;
+            img.alt = className;
+            img.style.width = "50px";  
+            img.style.height = "50px";
+            img.style.borderRadius = "5px";
+            img.style.boxShadow = "0px 2px 4px rgba(0, 0, 0, 0.1)";
+
+            // Hide broken images
+            img.onerror = function () {
+                console.error(`Image not found: ${img.src}`);
+                img.style.display = "none";
+            };
+
+            // Append elements
+            itemContainer.appendChild(textElement);
+            itemContainer.appendChild(img);
+            classList.appendChild(itemContainer);
         });
     }
 }
+
+
+
 
 function updateLegend(yAxisSelection, bitWidths) {
   svg.selectAll(".legend-group").remove();
@@ -328,13 +378,17 @@ document.querySelectorAll("#y-axis-options input").forEach(cb => cb.addEventList
 document.addEventListener("DOMContentLoaded", function() {
   let resultsTabButton = document.querySelector("button[onclick*='results']");
   if (resultsTabButton) {
-    resultsTabButton.click(); // Simulate a user clicking the tab
+    resultsTabButton.click(); 
   }
 });
 
 document.getElementById("evaluation-toggle").addEventListener("change", updateChart);
 
 updateChart();
+
+document.addEventListener("DOMContentLoaded", function () {
+    updateClassInfo("");
+});
 
 
 

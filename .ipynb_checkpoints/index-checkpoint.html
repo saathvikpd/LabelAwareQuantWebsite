@@ -6,9 +6,6 @@
   <title>When Less is More: Surprising Gains from Label-Aware Quantization</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
 
-
-
-
   <style>
     body {
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -278,7 +275,6 @@
       background: #0D47A1;
     }
     
-    /* Tab Content */
     .tab-content {
       display: none;
       padding: 20px;
@@ -423,49 +419,15 @@
       color: #666;
     }
 
-    .results-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
+    @media (max-width: 800px) {
+        #results div[style*="display: flex"] {
+            flex-direction: column;
+        }
     
-    #class-info {
-        width: 280px;
-        padding: 15px;
-        background: #fff;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-        font-size: 14px;
-        margin-left: 20px;
-        align-self: flex-start;
+        #subset-classes-container {
+            width: 100%;
+        }
     }
-    
-
-    #subset-classes {
-        list-style-type: none;
-        padding: 0;
-    }
-    
-    #subset-classes li {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 5px;
-        background: #f8f9fa;
-        border-radius: 5px;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-    
-    .class-img {
-        width: 32px;
-        height: 32px;
-        border-radius: 4px;
-        border: 1px solid #ddd;
-    }
-
-
 
 
 
@@ -636,7 +598,6 @@
     <div id="results" class="tab-content active">
       <h2>Results</h2>
       
-      <!-- Interactive Visualization -->
       <section id="visualization">
           <div class="controls">
             <div class="toggle-container">
@@ -672,16 +633,28 @@
               </div>
             </div>
 
-        <div id="chart"></div>
+        <!-- <div id="chart"></div>
 
-        <!-- <div class="results-container">
-            <div id="chart"></div>
-            <div id="class-info">
-                <h3>Selected Data Point</h3>
-                <p><strong>Subset Classes:</strong></p>
-                <ul id="subset-classes"></ul>
+        <h3>Subset Classes</h3>
+        <div id="subset-class-images" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
+        <div id="subset-classes" style="display: flex; flex-direction: column; gap: 5px;"></div> -->
+
+        <div id="results-container" style="display: flex; gap: 10px; align-items: flex-start;">
+            <!-- Chart Section -->
+            <div id="chart" style="flex: 2;"></div>
+        
+            <!-- Subset Classes Section -->
+            <div id="subset-classes-container" 
+                 style="flex: 1; padding: 15px; background: #f9f9f9; 
+                        border-radius: 8px; box-shadow: 0px 2px 5px rgba(0,0,0,0.1); 
+                        min-width: 200px; max-width: 250px; margin-left: -80px">
+                <h3>Subset Classes</h3>
+                <div id="subset-classes" style="display: flex; flex-direction: column; gap: 12px;"></div>
             </div>
-        </div> -->
+        </div>
+
+
+
 
       </section>
     </div>
