@@ -8,9 +8,12 @@ const fileMap = {
   "mpasc4": "Quantization_Log_resnet50_mpasc4bit.csv"
 };
 
-const margin = { top: 40, right: 300, bottom: 50, left: 70 },
-      width = 900 - margin.left - margin.right,
+const margin = { top: 40, right: 250, bottom: 50, left: 70 },
+      width = Math.min(800, document.getElementById("chart-container").clientWidth - margin.left - margin.right),
       height = 500 - margin.top - margin.bottom;
+
+
+
 
 const svg = d3.select("#chart")
   .append("svg")
@@ -216,11 +219,9 @@ function updateClassInfo(subsetClasses) {
     classList.innerHTML = "";
 
     if (!subsetClasses || subsetClasses.trim() === "") {
-        classList.innerHTML = "<p style='color: #000000; font-size: 14px; text-align: center;'>Click on a point to see the data</p>";
+        classList.innerHTML = "<p style='color: #000000; font-size: 15px; text-align: center;'>Click on a point to preview subset</p>";
         return;
-    }
-
-    if (subsetClasses) {
+    } else {
         let cleanedClasses = subsetClasses.replace(/[\[\]']+/g, "");
         let classes = cleanedClasses.split(",").map(cls => cls.trim());
 
@@ -232,10 +233,11 @@ function updateClassInfo(subsetClasses) {
             itemContainer.style.display = "flex";
             itemContainer.style.alignItems = "center";
             itemContainer.style.justifyContent = "space-between";
-            itemContainer.style.padding = "5px 10px";
+            itemContainer.style.padding = "4px 8px";
             itemContainer.style.border = "1px solid #ddd";
             itemContainer.style.borderRadius = "6px";
             itemContainer.style.background = "white";
+            itemContainer.style.maxWidth = "150px";
 
             // Create text element for class name
             const textElement = document.createElement("span");
@@ -248,9 +250,10 @@ function updateClassInfo(subsetClasses) {
             const img = document.createElement("img");
             img.src = `cifar100_samples/${className}.png`;
             img.alt = className;
-            img.style.width = "50px";  
-            img.style.height = "50px";
+            img.style.width = "30px";  
+            img.style.height = "30px";
             img.style.borderRadius = "5px";
+            img.style.border = "1px solid #000000";
             img.style.boxShadow = "0px 2px 4px rgba(0, 0, 0, 0.1)";
 
             // Hide broken images
@@ -274,8 +277,9 @@ function updateLegend(yAxisSelection, bitWidths) {
   svg.selectAll(".legend-group").remove();
 
   const legendGroup = svg.append("g")
-    .attr("class", "legend-group")
-    .attr("transform", `translate(${width + 100}, 20)`); 
+      .attr("class", "legend-group")
+      .attr("transform", `translate(${width + 70}, 20)`);
+
 
   let legendY = 0;
 
